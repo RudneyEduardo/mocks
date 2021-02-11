@@ -38,7 +38,9 @@ def bot():
         # return a quote
         global personalData
         personalData = {"docId": incoming_msg}
-        r = '''De acuerdo con la Ley de Datos, sigue el enlace para acceder a nuestra Política de Privacidad: https://testesmock.s3-sa-east-1.amazonaws.com/TermosECondicoes.pdf. ¿Confirma la consulta de datos en su banco? Si es así, escriba "confirmar".'''
+        r = '''De acuerdo con la Ley de Datos, sigue el enlace para ver los términos de consentimiento para esta consulta de datos: <https://testesmock.s3-sa-east-1.amazonaws.com/TermosECondicoes.pdf> 
+¿Confirma el consentimiento para la consulta de datos en su banco? Si es así, escriba "confirmar".'''
+        
         msg.body(r)
         responded = True
     if incoming_msg in confirmacoes_texto:
@@ -63,7 +65,7 @@ def bot():
                       'CotizacionSegyou', incoming_num)
         time.sleep(3)
         mandarMensagem("Enviamos una cotización sugerida en este archivo (para abrirlo, escriba su DocId dos veces). Para pagar e adquirir el seguro en estas condiciones, ingrese Codi para recibir un QRCode de pago instantáneo.", incoming_num)
-        mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + "https://terospricing.github.io/OpenBanking/CotacaoSegyou.html?From=" + incoming_num + "\r\n",
+        mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + "file:///C:/Users/Claudio/Documents/GitHub/mocks/whatsappbot.web/SegYou/CotacaoSegyou.html?From=" + incoming_num + "\r\n",
                        incoming_num)
 
         time.sleep(150)
@@ -137,11 +139,19 @@ def Apolice():
 
 def mandarMensagem(msg, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
-    client = Client('ACcbbaf828ffce32173b9b53f6fd7aaf12',
-                    '156f49ecefa9c71630f2ecbba4832a31')
+    client = Client('AC224a8eac78aa418d169119bf73a86cbb',
+                    'cafa73d824af8886d511a563c30d3a7f')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
+
+    incoming_num = str(incoming_num).strip()
+
+    if(not "+" in incoming_num):
+        incoming_num = "+" + incoming_num
+    if(not "whatsapp:" in incoming_num):
+        incoming_num = "whatsapp:" + incoming_num
+
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = incoming_num
 
@@ -152,11 +162,19 @@ def mandarMensagem(msg, incoming_num):
 
 def mandarArquivo(media, body, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
-    client = Client('ACcbbaf828ffce32173b9b53f6fd7aaf12',
-                    '156f49ecefa9c71630f2ecbba4832a31')
+    client = Client('AC224a8eac78aa418d169119bf73a86cbb',
+                    'cafa73d824af8886d511a563c30d3a7f')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
+
+    incoming_num = str(incoming_num).strip()
+
+    if(not "+" in incoming_num):
+        incoming_num = "+" + incoming_num
+    if(not "whatsapp:" in incoming_num):
+        incoming_num = "whatsapp:" + incoming_num
+
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = incoming_num
 
