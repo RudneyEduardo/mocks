@@ -4,7 +4,7 @@
       
 
       <Container></Container>
-
+      
 
   </div>
 </template>
@@ -14,7 +14,7 @@
   //
   //import Title from './components/Title'
   //import Cart from './components/Cart'
-  //import Form from './components/Form'
+  
   import Container from './components/Container'
 
 
@@ -24,7 +24,8 @@
     name: 'App',
     components: {
 
-      Container
+      Container,
+      
        
      
 
