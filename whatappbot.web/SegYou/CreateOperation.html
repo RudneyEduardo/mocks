@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello, world!</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+    <!--Plugin Listbox: https://codepen.io/jaredbell/pen/OejgMe-->
+    <link rel="stylesheet" type="text/css"
+        href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css">
+
+    <!--Plugin Steeper: https://github.com/Johann-S/bs-stepper/tree/v1.7.0#how-to-use-it-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2> Cadastro de operação de OpenBanking </h2>
+        <div class="row" style="margin-top: 40px;">
+            <div class="col">
+                <div class="bs-stepper">
+                    <div class="bs-stepper-header" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step" data-target="#logins-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="logins-part"
+                                id="logins-part-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">Cadastro inicial</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#information-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="information-part"
+                                id="information-part-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">Regulações</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#operation-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="operation-part"
+                                id="operation-part-trigger">
+                                <span class="bs-stepper-circle">3</span>
+                                <span class="bs-stepper-label">Operações</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                            <p><strong>Passo 1:</strong> Cadastro inicial </p>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Nome da operação</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Descrição</label>
+                                    <textarea class="form-control" id="exampleInputPassword1"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Banco</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option value="1">BB</option>
+                                        <option value="2">Caixa</option>
+                                        <option value="3">Bradesco</option>
+                                        <option value="4">Itau</option>
+                                        <option value="5">Santander</option>
+                                        <option value="6">Nubank</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 form-file">
+                                    <input type="file" class="form-file-input" id="customFile">
+                                    <label class="form-file-label" for="customFile">
+                                        <span class="form-file-text">Escolha seu arquivo de contrato T&C...</span>
+                                        <span class="form-file-button">Browse</span>
+                                    </label>
+                                </div>
+                                <button type="button" onclick="stepper.next()"
+                                    class="btn btn-primary w-100">Próximo</button>
+                            </form>
+                        </div>
+                        <div id="information-part" class="content" role="tabpanel"
+                            aria-labelledby="information-part-trigger">
+                            <h2> Regulações da operação </h2>
+                            <p><strong>Passo 2:</strong> Selecione as regulações da operação</p>
+                            <hr />
+                            <div class="row" style="margin-bottom: 40px;">
+                                <div class="col">
+                                    <form id="demoform">
+                                        <select multiple="multiple" size="10" name="duallistbox_demo1[]"
+                                            title="duallistbox_demo1[]">
+                                            <option value="payee1">PSD2</option>
+                                            <option value="payee1">LGPD</option>
+                                        </select>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-3 offset-md-3">
+                                                <button type="button"
+                                                    onclick="stepper.previous()"
+                                                    class="btn btn-primary w-100">Anterior</button>
+                                            </div>
+                                            <div class="col-md-3 ">
+                                                <button type="button" onclick="stepper.next()"
+                                                    class="btn btn-primary w-100">Próximo</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="operation-part" class="content" role="tabpanel"
+                         aria-labelledby="information-part-trigger">
+                            <h2> Regulações da operação </h2>
+                            <p><strong>Passo 2:</strong> Selecione as operações desse contrato</p>
+                            <hr />
+                            <div class="row" style="margin-bottom: 40px;">
+                                <div class="col">
+                                    <form id="demoform">
+                                        <select multiple="multiple" size="10" name="duallistbox_demo1[]"
+                                            title="duallistbox_demo1[]">
+                                            <option value="payee1">Dados cadastrais</option>
+                                            <option value="payee1">Financiamento</option>
+                                            <option value="payee1">Extrato</option>
+                                        </select>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-3 offset-md-3">
+                                                <button type="button"
+                                                    onclick="stepper.previous()"
+                                                    class="btn btn-primary w-100">Anterior</button>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="button" onclick="stepper.next()"
+                                                    class="btn btn-warning w-100">Finalizar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <!--Plugin Listbox: https://codepen.io/jaredbell/pen/OejgMe-->
+    <script
+        src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js"></script>
+
+    <!--Plugin Steeper: https://github.com/Johann-S/bs-stepper/tree/v1.7.0#how-to-use-it-->
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+    <script>
+        //Listbox
+        var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
+            nonSelectedListLabel: 'Regulações Disponíveis',
+            selectedListLabel: 'Regulações selecionadas',
+            preserveSelectionOnMove: 'Movidas',
+            moveAllLabel: 'Mover todos',
+            removeAllLabel: 'Remover todos'
+        });
+        $("#demoform").submit(function () {
+            alert($('[name="duallistbox_demo1[]"]').val());
+            return false;
+        });
+
+        //Stepper
+        var stepper = {};
+        $(document).ready(function () {
+            stepper = new Stepper($('.bs-stepper')[0])
+        });
+    </script>
+
+
+</body>
+
+</html>
