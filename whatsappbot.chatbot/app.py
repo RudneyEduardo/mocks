@@ -5,13 +5,27 @@ from twilio.twiml.messaging_response import MessagingResponse
 import time
 from twilio.rest import Client
 from app_es import app_es
+from flask_cors import CORS, cross_origin
+
+
+
 
 app = Flask(__name__)
 app.register_blueprint(app_es)
+#cors = CORS(app, resources={r"/": {"origins": ""}})
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/")
+@cross_origin()
 def hello_world():
     return "<p>Olá, Mundo!</p>"
+
+@app.route('/teste')
+def teste():
+    confirma = request.form['confirmaConsentimento']
+    return "<p>confirma</p>"
 
 @app.route('/bot', methods=['POST'])
 def bot():

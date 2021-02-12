@@ -5,6 +5,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 import time
 from twilio.rest import Client
 
+
 app_es = Blueprint('app_es', __name__)
 
 personalData = {
@@ -12,13 +13,17 @@ personalData = {
 }
 
 
-@app_es.route("/es/")
+@app_es.route("/es/post", methods=['POST'])
 def hello_world():
+    global data = request.json
+
     return "<p>Hello, World!</p>"
 
 
 @app_es.route('/es/bot', methods=['POST'])
 def bot():
+    
+    print(data)
     
     lista_bancos = ["itau", "bradesco", "citibanamex", "banorte", "santander",
                     "banco do brasil", "caixa", "BB", "Nubank", "BTG", "banese"]

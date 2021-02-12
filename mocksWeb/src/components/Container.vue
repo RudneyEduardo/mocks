@@ -265,9 +265,10 @@
 
                         <div id="GetAPayForm" style="display: none">
                             <div class="col-md-12">
-                                <button id="btnGetAPay" class="btn btn-primary btn-lg btn-block" type="button" onclick='window.open( 
+                                
+                                <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block"  onclick='window.open( 
               "https://terospricing.github.io/OpenBanking/SegyouGetAPay.html?Valor=$183,33%20/mes&From=whatsapp:5511940450348", "_blank");'>Get a
-                                    Pay</button>
+                                    Pay</a>
                             </div>
                         </div>
                     </form>
