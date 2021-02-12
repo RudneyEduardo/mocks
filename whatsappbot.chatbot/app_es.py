@@ -15,15 +15,19 @@ personalData = {
 
 @app_es.route("/es/post", methods=['POST'])
 def hello_world():
-    global data = request.json
+
 
     return "<p>Hello, World!</p>"
 
 
 @app_es.route('/es/bot', methods=['POST'])
 def bot():
+    try:
+        data = request.json
+        print(data)
+    except:
+        pass
     
-    print(data)
     
     lista_bancos = ["itau", "bradesco", "citibanamex", "banorte", "santander",
                     "banco do brasil", "caixa", "BB", "Nubank", "BTG", "banese"]
@@ -148,7 +152,7 @@ def Apolice():
 def mandarMensagem(msg, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    '0d15d463a60d93527ea05a48e953fc92')
+                    'e08198e4509568ca2a67370668194a40')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
@@ -171,7 +175,7 @@ def mandarMensagem(msg, incoming_num):
 def mandarArquivo(media, body, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    '0d15d463a60d93527ea05a48e953fc92')
+                    'e08198e4509568ca2a67370668194a40')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
