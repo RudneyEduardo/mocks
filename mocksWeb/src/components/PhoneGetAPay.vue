@@ -38,7 +38,7 @@
                                     <strong>
 
                                     </strong>
-                                    Segyou solicita una autorizacíon de compra de: ?? con recurrencia mensual por un período de 12 meses
+                                    Segyou solicita una autorizacíon de compra de: $367,00/mes con recurrencia mensual por un período de 12 meses
 
                                     <br><br>
                                     <span style="text-align: center;"><button id="confirmaConsentimento"

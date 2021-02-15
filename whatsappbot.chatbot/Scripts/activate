@@ -76,4 +76,4 @@ if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
 fi
 
 export TWILIO_ACCOUNT_SID='AC224a8eac78aa418d169119bf73a86cbb'
-export TWILIO_AUTH_TOKEN='10b1d189151da441ba0f58642954faea'
+export TWILIO_AUTH_TOKEN='da180eca0073443f3b77285616abc552'
