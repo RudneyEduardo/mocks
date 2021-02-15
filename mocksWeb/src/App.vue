@@ -13,10 +13,13 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="styles/form-validation.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="../styles/iphone.css">
+    <link rel="stylesheet" type="text/css" href="../styles/index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/notification.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-      <Container>
-      </Container>
+      <router-view></router-view>
   </div>
 </template>
 
@@ -64,16 +67,9 @@
 
 <script>
 
-// @ is an alias to /src
-import Container from '@/components/Container.vue'
 
 
 export default {
   name: 'Home',
-  components: {
-    Container,
-   
-    
-  }
 }
 </script>

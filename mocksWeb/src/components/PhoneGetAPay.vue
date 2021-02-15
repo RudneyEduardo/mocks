@@ -38,10 +38,7 @@
                                     <strong>
 
                                     </strong>
-                                    Hola, hemos recibido consentimiento para compartir sus datos de registro.
-                                    Favorito: SEGYOU.
-                                    Acceda a la aplicación del Banco para
-                                    autenticar la presentación.
+                                    Segyou solicita una autorizacíon de compra de: ?? con recurrencia mensual por un período de 12 meses
 
                                     <br><br>
                                     <span style="text-align: center;"><button id="confirmaConsentimento"
@@ -95,6 +92,7 @@
 
 </style>
 
+
 <script>
     import axios from 'axios'
 
@@ -110,10 +108,9 @@
             postData() {
                 var fromParam = this.$route.params.From
 
-                console.log(fromParam)    
 
                 axios.post('http://127.0.0.1:5000/es/bot', {
-                    Body: "confirmarConsentimento",
+                    Body: "confirmarPagamento",
                     From: fromParam
                 });
                 this.divModalPhone = 'off'

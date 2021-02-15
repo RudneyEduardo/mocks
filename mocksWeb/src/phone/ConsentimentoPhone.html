@@ -108,6 +108,8 @@
         
         var fromParam = urlParams.get('From');
 
+        console.log(urlParams.get('From'))
+
         axios.post('http://127.0.0.1:5000/es/bot', {
             Body: "confirmarConsentimento",
             From: '5511940450348'

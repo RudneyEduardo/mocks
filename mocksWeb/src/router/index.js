@@ -1,28 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Container from '../components/Container.vue'
+import PhoneConsentimento from '../components/PhoneConsentimento.vue'
+import PhoneGetAPay from '../components/PhoneGetAPay.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path:'/',
+    name:'Container',
+    component: Container
+
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path:'/phoneConsentimento/:From',
+    name: 'PhoneConsentimento',
+    component: PhoneConsentimento
+  },
+  {
+    path:'/phoneGetAPay/:From',
+    name:'PhoneGetAPay',
+    component: PhoneGetAPay
   }
-]
+  ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
   routes
 })
 
