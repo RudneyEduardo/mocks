@@ -129,7 +129,7 @@ def Apolice():
 def mandarMensagem(msg, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'e08198e4509568ca2a67370668194a40')
+                    '10b1d189151da441ba0f58642954faea')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
@@ -152,7 +152,7 @@ def mandarMensagem(msg, incoming_num):
 def mandarArquivo(media, body, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'e08198e4509568ca2a67370668194a40')
+                    '10b1d189151da441ba0f58642954faea')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'

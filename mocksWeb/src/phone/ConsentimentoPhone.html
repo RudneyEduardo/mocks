@@ -104,8 +104,13 @@
 <script>
     // Example POST method implementation:
     async function postData() {
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        var fromParam = urlParams.get('From');
+
         axios.post('http://127.0.0.1:5000/es/bot', {
-            confirmar: "confirmar"
+            Body: "confirmarConsentimento",
+            From: '5511940450348'
         });
 
         document.getElementById('dialog-container').style.display = 'none';

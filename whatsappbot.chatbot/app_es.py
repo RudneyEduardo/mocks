@@ -4,6 +4,7 @@ import json
 from twilio.twiml.messaging_response import MessagingResponse
 import time
 from twilio.rest import Client
+import asyncio
 
 
 app_es = Blueprint('app_es', __name__)
@@ -15,26 +16,38 @@ personalData = {
 
 @app_es.route("/es/post", methods=['POST'])
 def hello_world():
-
-
     return "<p>Hello, World!</p>"
 
 
 @app_es.route('/es/bot', methods=['POST'])
 def bot():
+    """
+    async def wait_get_data():
+        delay_data  = data
+        print(delay_data)
+        return delay_data
+    
+    teste = wait_get_data()
+    print(teste)"""
+
     try:
         data = request.json
-        print(data)
+        print(data['Body'])
+        print('------')
+        print(data['From'])
     except:
         pass
-    
-    
+
     lista_bancos = ["itau", "bradesco", "citibanamex", "banorte", "santander",
                     "banco do brasil", "caixa", "BB", "Nubank", "BTG", "banese"]
     confirmacoes_texto = ["confirmar", "confirma", "si"]
 
     incoming_msg = request.values.get('Body', '').lower()
+    if not incoming_msg:
+        incoming_msg = data['Body']
     incoming_num = request.values.get('From', '').lower()
+    if not incoming_num:
+        incoming_num = data['From']
 
     resp = MessagingResponse()
     msg = resp.message()
@@ -56,7 +69,8 @@ def bot():
     if incoming_msg in confirmacoes_texto:
         mandarMensagem(
             "Gracias. Usted recibirá un mensaje de su banco, confirme su consentimiento para el envio de sus datos cadastrales.", incoming_num)
-
+        responded = True
+    elif incoming_msg == 'confirmarConsentimento':
         try:
             grantCode = getGrantCode()['redirect_uri']
             if(grantCode != None):
@@ -70,23 +84,25 @@ def bot():
         except:
             print("Sensedia error")
 
-        time.sleep(3)
         mandarArquivo('https://terospricing.github.io/OpenBanking/CotizacionSegyou.pdf',
-                      'CotizacionSegyou', incoming_num)
+                    'CotizacionSegyou', incoming_num)
         # Se o request.
         
         time.sleep(3)
         mandarMensagem("Enviamos una cotización sugerida en este archivo (para abrirlo, escriba su DocId dos veces). Para pagar e adquirir el seguro en estas condiciones, ingrese Codi para recibir un QRCode de pago instantáneo.", incoming_num)
         mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + "file:///C:/Users/Claudio/Documents/GitHub/mocks/whatsappbot.web/SegYou/CotacaoSegyou.html?From=" + incoming_num + "\r\n",
-                       incoming_num)
+                    incoming_num)
 
         time.sleep(150)
         mandarMensagem("Transacción confirmada, te enviamos tu póliza",
-                       incoming_num)
+                    incoming_num)
         mandarArquivo(
             "https://terospricing.github.io/OpenBanking/PolizaSegyou.pdf", "PolizaSegyou", incoming_num)
 
         responded = True
+
+
+
     if 'codi' in incoming_msg:
         # grantCode = getGrantCode()['redirect_uri']
         # if(grantCode != None):
@@ -152,11 +168,11 @@ def Apolice():
 def mandarMensagem(msg, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'e08198e4509568ca2a67370668194a40')
+                    '10b1d189151da441ba0f58642954faea')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
-
+    print(incoming_num)
     incoming_num = str(incoming_num).strip()
 
     if(not "+" in incoming_num):
@@ -166,7 +182,7 @@ def mandarMensagem(msg, incoming_num):
 
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = incoming_num
-
+    print('mandando msg para: ' + to_whatsapp_number)
     client.messages.create(body=msg,
                            from_=from_whatsapp_number,
                            to=to_whatsapp_number)
@@ -175,11 +191,11 @@ def mandarMensagem(msg, incoming_num):
 def mandarArquivo(media, body, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
     client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'e08198e4509568ca2a67370668194a40')
+                    '10b1d189151da441ba0f58642954faea')
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
-
+    print(incoming_num)
     incoming_num = str(incoming_num).strip()
 
     if(not "+" in incoming_num):
@@ -189,7 +205,7 @@ def mandarArquivo(media, body, incoming_num):
 
     # replace this number with your own WhatsApp Messaging number
     to_whatsapp_number = incoming_num
-
+    print('mandando arquivo para: ' + to_whatsapp_number)
     client.messages.create(body=body,
                            media_url=media,
                            from_=from_whatsapp_number,
