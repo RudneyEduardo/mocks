@@ -15,8 +15,8 @@
                                 <h6 class="my-0">Seguro de vida estándar</h6>
                                 <!-- <small class="text-muted">Nuestro producto de seguro de vida estándar </small> -->
                             </div>
-                            <span id="lblValor" class="text-muted">Prima: ${{ value }} /ano</span>
-                            <span id="lblPremio" class="text-muted">Cobertura del seguro: ${{ value }}</span>
+                            <span id="lblValor" class="text-muted">Prima: ${{ primaVal }} /ano</span>
+                            <span id="lblPremio" class="text-muted">Cobertura del seguro: ${{ coberturaVal }}</span>
                         </li>
                         <!-- <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
@@ -35,7 +35,7 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Parcela </span>
-                            <strong id="lblTotal">$183,33 /mes</strong>
+                            <strong id="lblTotal">${{ mensalVal }} /mes</strong>
                         </li>
                     </ul>
 
@@ -54,7 +54,7 @@
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Cobertura del Seguro</label>
                                 <input id="txtValorDoPremio" type="text" class="form-control" :placeholder="value"
-                                    v-on:input="changeValue($event)" required="">
+                                    v-on:input="changeValueReactive($event)" required="">
 
 
                             </div>
@@ -201,26 +201,26 @@
 
                         <div class="my-3">
                             <div class="form-check">
-                                <input id="001" value="Card" name="paymentMethod" @change="radioChange($event)"
-                                    type="radio" class="form-check-input credit-card" checked="" required="">
-                                <label class="form-check-label" for="001">Tarjeta de Crédito (Credit Card)</label>
+                                <input value="Card"  
+                                    v-model="paymentMethod" type="radio" class="form-check-input credit-card" checked="" required="">
+                                <label class="form-check-label" >Tarjeta de Crédito (Credit Card)</label>
                             </div>
                             <div class="form-check">
-                                <input id="002" value="CoDi" name="paymentMethod" @change="radioChange($event)"
-                                    type="radio" class="form-check-input" required="">
-                                <label class="form-check-label" for="002">CoDi</label>
+                                <input  value="CoDi" 
+                                   v-model="paymentMethod" type="radio" class="form-check-input" required="">
+                                <label class="form-check-label">CoDi</label>
                             </div>
                             <div class="form-check">
-                                <input id="003" value="GetAPay" name="paymentMethod" @change="radioChange($event)"
-                                    type="radio" class="form-check-input" required="">
-                                <label class="form-check-label" for="003">Get a Pay</label>
+                                <input  value="GetAPay" 
+                                   v-model="paymentMethod" type="radio" class="form-check-input" required="">
+                                <label class="form-check-label">Get a Pay</label>
                             </div>
                         </div>
 
-                        <div id="CreditCardForm" class="row gy-3">
+                        <div v-if="paymentMethod === 'Card'" class="row gy-3">
                             <div class="col-md-6">
-                                <label for="cc-name" class="form-label">Nombre de la tarjeta</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                                <label class="form-label">Nombre de la tarjeta</label>
+                                <input type="text" class="form-control" placeholder="" required="">
                                 <!-- <small class="text-muted">Nombre na tarjeta</small> -->
                                 <div class="invalid-feedback">
                                     Nome no cartão é obrigatório.
@@ -228,47 +228,47 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="cc-number" class="form-label">Numero de la tarjeta</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                                <label class="form-label">Numero de la tarjeta</label>
+                                <input type="text" class="form-control" placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Número do cartão é obrigatório.
                                 </div>
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-expiration" class="form-label">Expiración</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                                <label class="form-label">Expiración</label>
+                                <input type="text" class="form-control"  placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Data de expiração é obrigatório.
                                 </div>
                             </div>
 
                             <div class="col-md-3">
-                                <label for="cc-cvv" class="form-label">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                                <label  class="form-label">CVV</label>
+                                <input type="text" class="form-control" placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Código de segurança é obrigatório.
                                 </div>
                             </div>
                             <hr class="my-4">
 
-                            <button id="btnFinish" class="btn btn-primary btn-lg btn-block" type="button">Terminar la
+                            <button class="btn btn-primary btn-lg btn-block" type="button">Terminar la
                                 compra</button>
                         </div>
 
-                        <div id="CoDiForm" class="row gy-3" style="display: none">
+                        <div v-if="paymentMethod === 'CoDi'" class="row gy-3">
                             <div class="col-md-12">
                                 <img src="https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
                                     width="400" height="400">
                             </div>
                         </div>
 
-                        <div id="GetAPayForm" style="display: none">
+                        <div v-if="paymentMethod === 'GetAPay'">
                             <div class="col-md-12">
-                                
-                                <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block"  onclick='window.open( 
-              "https://terospricing.github.io/OpenBanking/SegyouGetAPay.html?Valor=$183,33%20/mes&From=whatsapp:5511940450348", "_blank");'>Get a
+                                <router-link :to="{ name: 'Home'}" target="_blank">
+                                <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block"  >Get a
                                     Pay</a>
+                                </router-link>
                             </div>
                         </div>
                     </form>
@@ -302,39 +302,20 @@
             Title,
         },
         data() {
-            this.value = 10000,
-                this.payType = "Tarjeta de Crédito (Credit Card)"
+            return {
+                value: 10000,
+                coberturaVal: 10000,
+                primaVal: 220,
+                mensalVal: 18,
+                paymentMethod: 'Card'
+            }
         },
 
         methods: {
-            changeValue(event) {
-                let lblValor = document.getElementById('lblValor')
-                let lblPremio = document.getElementById('lblPremio')
-                let lblTotal = document.getElementById('lblTotal')
-                lblPremio.innerText = "Cobertura del seguro: $" + event.target.value
-                lblValor.innerText = "Prima: $" + Math.round(event.target.value * 0.022) + "/ano"
-                lblTotal.innerText = "$" + Math.round(((event.target.value * 0.022) / 12)) + " /mes"
-            },
-            radioChange(event) {
-                let selected = event.target.value
-                console.log(selected)
-                if (selected === "CoDi") {
-                    document.getElementById('CoDiForm').style.display = 'block';
-                    document.getElementById('GetAPayForm').style.display = 'none';
-                    document.getElementById('CreditCardForm').style.display = 'none';
-
-                } else if (selected === "GetAPay") {
-                    //Aqui quando for selecionado vai aparecer o cel 
-                    document.getElementById('GetAPayForm').style.display = 'block';
-                    document.getElementById('CreditCardForm').style.display = 'none';
-                    document.getElementById('CoDiForm').style.display = 'none';
-
-
-                } else {
-                    document.getElementById('CreditCardForm').style.display = 'block';
-                    document.getElementById('CoDiForm').style.display = 'none';
-                    document.getElementById('GetAPayForm').style.display = 'none';
-                }
+            changeValueReactive(event){
+                this.coberturaVal = event.target.value
+                this.primaVal = Math.round(this.coberturaVal*0.022)
+                this.mensalVal = Math.round(this.primaVal /12)
             }
         }
 
