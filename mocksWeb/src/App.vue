@@ -12,7 +12,11 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="styles/form-validation.css') }}">
-      <Container></Container>
+
+
+
+      <Container>
+      </Container>
   </div>
 </template>
 
@@ -57,7 +61,9 @@
 }
 </style>
 
+
 <script>
+
 // @ is an alias to /src
 import Container from '@/components/Container.vue'
 
@@ -65,7 +71,8 @@ import Container from '@/components/Container.vue'
 export default {
   name: 'Home',
   components: {
-    Container
+    Container,
+   
     
   }
 }

@@ -201,18 +201,18 @@
 
                         <div class="my-3">
                             <div class="form-check">
-                                <input value="Card"  
-                                    v-model="paymentMethod" type="radio" class="form-check-input credit-card" checked="" required="">
-                                <label class="form-check-label" >Tarjeta de Crédito (Credit Card)</label>
+                                <input value="Card" v-model="paymentMethod" type="radio"
+                                    class="form-check-input credit-card" checked="" required="">
+                                <label class="form-check-label">Tarjeta de Crédito (Credit Card)</label>
                             </div>
                             <div class="form-check">
-                                <input  value="CoDi" 
-                                   v-model="paymentMethod" type="radio" class="form-check-input" required="">
+                                <input value="CoDi" v-model="paymentMethod" type="radio" class="form-check-input"
+                                    required="">
                                 <label class="form-check-label">CoDi</label>
                             </div>
                             <div class="form-check">
-                                <input  value="GetAPay" 
-                                   v-model="paymentMethod" type="radio" class="form-check-input" required="">
+                                <input value="GetAPay" v-model="paymentMethod" type="radio" class="form-check-input"
+                                    required="">
                                 <label class="form-check-label">Get a Pay</label>
                             </div>
                         </div>
@@ -237,14 +237,14 @@
 
                             <div class="col-md-3">
                                 <label class="form-label">Expiración</label>
-                                <input type="text" class="form-control"  placeholder="" required="">
+                                <input type="text" class="form-control" placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Data de expiração é obrigatório.
                                 </div>
                             </div>
 
                             <div class="col-md-3">
-                                <label  class="form-label">CVV</label>
+                                <label class="form-label">CVV</label>
                                 <input type="text" class="form-control" placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Código de segurança é obrigatório.
@@ -266,8 +266,8 @@
                         <div v-if="paymentMethod === 'GetAPay'">
                             <div class="col-md-12">
                                 <router-link :to="{ name: 'Home'}" target="_blank">
-                                <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block"  >Get a
-                                    Pay</a>
+                                    <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block">Get a
+                                        Pay</a>
                                 </router-link>
                             </div>
                         </div>
@@ -285,7 +285,10 @@
                 <li class="list-inline-item"><a href="#">Soporte</a></li>
             </ul>
         </footer>
+
     </div>
+
+
 </template>
 
 
@@ -296,10 +299,12 @@
 
 
 
+
     export default {
         name: 'Container',
         components: {
             Title,
+
         },
         data() {
             return {
@@ -312,10 +317,10 @@
         },
 
         methods: {
-            changeValueReactive(event){
+            changeValueReactive(event) {
                 this.coberturaVal = event.target.value
-                this.primaVal = Math.round(this.coberturaVal*0.022)
-                this.mensalVal = Math.round(this.primaVal /12)
+                this.primaVal = Math.round(this.coberturaVal * 0.022)
+                this.mensalVal = Math.round(this.primaVal / 12)
             }
         }
 
