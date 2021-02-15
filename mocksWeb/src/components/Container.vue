@@ -265,10 +265,10 @@
 
                         <div v-if="paymentMethod === 'GetAPay'">
                             <div class="col-md-12">
-                                <router-link :to="{ name: 'Home'}" target="_blank">
-                                    <a id="btnGetAPay" class="btn btn-primary btn-lg btn-block">Get a
+                                
+                                    <a @click="()=>$router.push('phoneGetAPay/5511940450348')" id="btnGetAPay" class="btn btn-primary btn-lg btn-block">Get a
                                         Pay</a>
-                                </router-link>
+                                
                             </div>
                         </div>
                     </form>
@@ -290,6 +290,67 @@
 
 
 </template>
+
+<style scoped>
+    @import "https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css";
+
+
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+
+    #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    #nav {
+        padding: 30px;
+    }
+
+    #nav a {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    #nav a.router-link-exact-active {
+        color: #42b983;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+
+    @import "../styles/form-validation.css";
+</style>
+
+
+
 
 
 
