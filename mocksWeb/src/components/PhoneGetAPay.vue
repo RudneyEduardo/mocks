@@ -109,7 +109,7 @@
                 var fromParam = this.$route.params.From
 
 
-                axios.post('http://127.0.0.1:5000/es/bot', {
+                axios.post('http://127.0.0.1:5000/bot/es', {
                     Body: "confirmarPagamento",
                     From: fromParam
                 });

@@ -4,14 +4,12 @@ import json
 from twilio.twiml.messaging_response import MessagingResponse
 import time
 from twilio.rest import Client
-from app_es import app_es
 from flask_cors import CORS, cross_origin
 
 
 
 
 app = Flask(__name__)
-app.register_blueprint(app_es)
 #cors = CORS(app, resources={r"/": {"origins": ""}})
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -22,10 +20,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def hello_world():
     return "<p>Olá, Mundo!</p>"
 
-@app.route('/teste')
-def teste():
-    confirma = request.form['confirmaConsentimento']
-    return "<p>confirma</p>"
 
 @app.route('/bot', methods=['POST'])
 def bot():
@@ -111,6 +105,119 @@ def bot():
     '''
 
     return str(resp)
+
+@app.route('/bot/es', methods=['POST'])
+def botEs():
+    try:
+        data = request.json
+        print(data['Body'])
+        print('------')
+        print(data['From'])
+    except:
+        pass
+
+    lista_bancos = ["itau", "bradesco", "citibanamex", "banorte", "santander",
+                    "banco do brasil", "caixa", "BB", "Nubank", "BTG", "banese"]
+    confirmacoes_texto = ["confirmar", "confirma", "si"]
+
+    incoming_msg = request.values.get('Body', '').lower()
+    if not incoming_msg:
+        incoming_msg = data['Body']
+    incoming_num = request.values.get('From', '').lower()
+    if not incoming_num:
+        incoming_num = data['From']
+
+    resp = MessagingResponse()
+    msg = resp.message()
+    responded = False
+    if (any(char.isdigit() for char in incoming_msg) and len(incoming_msg) == 1) or incoming_msg in lista_bancos:
+        # return a quote
+        r = "Por favor, ingrese su DocId."
+        msg.body(r)
+        responded = True
+    if (any(char.isdigit() for char in incoming_msg) and len(incoming_msg) > 1) or incoming_msg in lista_bancos:
+        # return a quote
+        global personalData
+        personalData = {"docId": incoming_msg}
+        r = '''De acuerdo con la Ley de Datos, sigue el enlace para ver los términos de consentimiento para esta consulta de datos: <https://testesmock.s3-sa-east-1.amazonaws.com/TermosECondicoes.pdf> 
+¿Confirma el consentimiento para la consulta de datos en su banco? Si es así, escriba "confirmar".'''
+        
+        msg.body(r)
+        responded = True
+    if incoming_msg in confirmacoes_texto:
+        mandarMensagem(
+            "Gracias. Usted recibirá un mensaje de su banco, confirme su consentimiento para el envio de sus datos cadastrales.", incoming_num)
+        responded = True
+    # Se o usuário clicar em confirmar consentimento no celular
+    elif incoming_msg == 'confirmarConsentimento':
+        try:
+            grantCode = getGrantCode()['redirect_uri']
+            if(grantCode != None):
+                print("Grant Code Successful")
+            accessToken = getAccessToken(grantCode)['access_token']
+            if(accessToken != None):
+                print("access_token")
+
+            print(personalData)
+            getPersonalData(accessToken, personalData["docId"])
+        except:
+            print("Sensedia error")
+
+        mandarArquivo('https://terospricing.github.io/OpenBanking/CotizacionSegyou.pdf',
+                    'CotizacionSegyou', incoming_num)
+        
+        time.sleep(1)
+        mandarMensagem("Enviamos una cotización sugerida en este archivo (para abrirlo, escriba su DocId dos veces). Para pagar e adquirir el seguro en estas condiciones, ingrese Codi para recibir un QRCode de pago instantáneo.", incoming_num)
+        mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + "https://www.google.com/",
+                    incoming_num)
+        responded = True
+    # Se o usuário clilcar em confirmar pagamento no celular
+    if incoming_msg == 'confirmarPagamento':
+        mandarMensagem("Transacción confirmada, te enviamos tu póliza",
+                    incoming_num)
+        mandarArquivo(
+            "https://terospricing.github.io/OpenBanking/PolizaSegyou.pdf", "PolizaSegyou", incoming_num)
+
+        responded = True
+
+
+
+
+    if 'codi' in incoming_msg:
+        try:
+            postPayments()
+        except:
+            print("Sensedia error")
+
+        r = "Sigue nuestro QR Code de CoDi"
+        msg.body(r)
+        msg.media('https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png')
+        responded = True
+    if not responded:
+        mandarMensagem(
+            'Hola, bienvenido al canal de cotización y venta de seguros de vida SegYou - Anytime Safe.', incoming_num)
+        msg.body('''Para garantizar su facilidad y seguridad de la información, obtenemos los datos para la cotización a través de su registro bancario. Por lo tanto, ingrese el número correspondiente al banco en el que tiene una cuenta: 
+        * 1 * - CitiBanamex; 
+        * 2 * - Banorte; 
+        * 3 * - Santander; 
+        * 4 * - BBVA; 
+        * 5 * - HSBC; ''')
+
+    return str(resp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/Cotacao', methods=['GET'])
@@ -228,4 +335,4 @@ def getPersonalData(AccessToken):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
