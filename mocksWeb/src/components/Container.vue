@@ -277,7 +277,7 @@
 
         </main>
 
-        <footer class="my-5 pt-5 text-muted text-center text-small">
+        <footer style="background-color: white;" class="my-5 pt-5 text-muted text-center text-small">
             <p class="mb-1">© 2020 SegYou</p>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacidad</a></li>
