@@ -2,8 +2,8 @@
     <div style="display: block;
                 margin-left: auto;
                 margin-right: auto;
-                height: 50%;
-  width: 50%;" class="py-5 text-center">
+                height: 25%;
+  width: 25%;" class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../images/SegYou.png" alt="" width="300" height="250">
         <h2>{{ msg1 }}</h2>
         <p class="lead">{{ msg2 }}</p>

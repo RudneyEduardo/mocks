@@ -199,7 +199,8 @@
 
                         <h4 class="mb-3">Opciones de Pago</h4>
 
-                        <div class="my-3">
+                        <div style="text-align: left;
+                                    display:inline;" class="my-3">
                             <div class="form-check">
                                 <input value="Card" v-model="paymentMethod" type="radio"
                                     class="form-check-input credit-card" checked="" required="">
@@ -258,17 +259,21 @@
 
                         <div v-if="paymentMethod === 'CoDi'" class="row gy-3">
                             <div class="col-md-12">
-                                <img src="https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
-                                    width="400" height="400">
+                                <img style="height: 50%;
+                                            width: 50%;"   
+                                            src="https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
+                                            width="400" 
+                                            height="400">
                             </div>
                         </div>
 
                         <div v-if="paymentMethod === 'GetAPay'">
                             <div class="col-md-12">
-                                
-                                    <a @click="()=>$router.push('phoneGetAPay/5511940450348')" id="btnGetAPay" class="btn btn-primary btn-lg btn-block">Get a
-                                        Pay</a>
-                                
+
+                                <a @click="()=>$router.push('phoneGetAPay/5511940450348')" id="btnGetAPay"
+                                    class="btn btn-primary btn-lg btn-block">Get a
+                                    Pay</a>
+
                             </div>
                         </div>
                     </form>
