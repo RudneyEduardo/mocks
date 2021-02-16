@@ -259,7 +259,7 @@
 
                         <div v-if="paymentMethod === 'CoDi'" class="row gy-3">
                             <div class="col-md-12">
-                                <img style="height: 50%;
+                                <img style="height: 75%;
                                             width: 50%;"   
                                             src="https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
                                             width="400" 
