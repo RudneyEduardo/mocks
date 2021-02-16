@@ -266,6 +266,7 @@ def mandarArquivo(media, body, incoming_num):
 
 
 def getGrantCode():
+    print("getGrantCode inititate")
     try:
         url = "https://api-terosopenbanking.sensedia.com/oauth/v1/grant-code?response_type=code&client_id=6522944b-8a92-369b-bc9e-7e27b9422fc4&redirect_uri=http://supermock.demo.sensedia.com&state=codestate123456"
 
@@ -274,11 +275,12 @@ def getGrantCode():
             'callback': '0'
         }
 
-        response = requests.request("GET", url, headers=headers, data=payload)
+        response = requests.request("GET", url, headers=headers, data=payload, timeout=5)
+        print(response.text.encode('utf8'))
         return json.loads(response.text.encode('utf8'))
     except:
-        print("getGrantCodeError")
-        return ""
+        print("getGrantCode error")
+        return None
 
 
 def getAccessToken(redirect_uri):
