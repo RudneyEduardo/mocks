@@ -5,9 +5,9 @@ from twilio.twiml.messaging_response import MessagingResponse
 import time
 from twilio.rest import Client
 from flask_cors import CORS, cross_origin
+import config
 
-
-
+print(config.data['QRCode'])
 
 app = Flask(__name__)
 #cors = CORS(app, resources={r"/": {"origins": ""}})
@@ -139,7 +139,7 @@ def botEs():
         # return a quote
         global personalData
         personalData = {"docId": incoming_msg}
-        r = '''De acuerdo con la Ley de Datos, sigue el enlace para ver los términos de consentimiento para esta consulta de datos: <https://testesmock.s3-sa-east-1.amazonaws.com/TermosECondicoes.pdf> 
+        r = '''De acuerdo con la Ley de Datos, sigue el enlace para ver los términos de consentimiento para esta consulta de datos: ''' + config.data['TermosECondicoes']+'''
 ¿Confirma el consentimiento para la consulta de datos en su banco? Si es así, escriba "confirmar".'''
         
         msg.body(r)
@@ -163,12 +163,12 @@ def botEs():
         except:
             print("Sensedia error")
 
-        mandarArquivo('https://terospricing.github.io/OpenBanking/CotizacionSegyou.pdf',
+        mandarArquivo(config.data['CotacionSegYou'],
                     'CotizacionSegyou', incoming_num)
         
         time.sleep(1)
         mandarMensagem("Enviamos una cotización sugerida en este archivo (para abrirlo, escriba su DocId dos veces). Para pagar e adquirir el seguro en estas condiciones, ingrese Codi para recibir un QRCode de pago instantáneo.", incoming_num)
-        mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + "https://www.google.com/",
+        mandarMensagem("Si desea utilizar otro medio de pago o modificar la cotización sugerida, acceda al ambiente seguro SegYou - Anytime Safe, en el enlace: " + config.data['AmbienteSegYou'],
                     incoming_num)
         responded = True
     # Se o usuário clilcar em confirmar pagamento no celular
@@ -176,7 +176,7 @@ def botEs():
         mandarMensagem("Transacción confirmada, te enviamos tu póliza",
                     incoming_num)
         mandarArquivo(
-            "https://terospricing.github.io/OpenBanking/PolizaSegyou.pdf", "PolizaSegyou", incoming_num)
+            config.data['PolizaSegYou'], "PolizaSegyou", incoming_num)
 
         responded = True
 
@@ -191,7 +191,7 @@ def botEs():
 
         r = "Sigue nuestro QR Code de CoDi"
         msg.body(r)
-        msg.media('https://br.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market/generator/dist/generator/assets/images/websiteQRCode_noFrame.png')
+        msg.media(config.data['QRCode'])
         responded = True
     if not responded:
         mandarMensagem(
@@ -204,21 +204,6 @@ def botEs():
         * 5 * - HSBC; ''')
 
     return str(resp)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @app.route('/Cotacao', methods=['GET'])
 def Cotacao():
@@ -235,8 +220,8 @@ def Apolice():
 
 def mandarMensagem(msg, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
-    client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'da180eca0073443f3b77285616abc552')
+    client = Client(config.data['account_sid'],
+                    config.data['auth_token'])
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
@@ -258,8 +243,8 @@ def mandarMensagem(msg, incoming_num):
 
 def mandarArquivo(media, body, incoming_num):
     # client credentials are read from TWILIO_ACCOUNT_SID and AUTH_TOKEN
-    client = Client('AC224a8eac78aa418d169119bf73a86cbb',
-                    'da180eca0073443f3b77285616abc552')
+    client = Client(config.data['account_sid'],
+                    config.data['auth_token'])
 
     # this is the Twilio sandbox testing number
     from_whatsapp_number = 'whatsapp:+14155238886'
