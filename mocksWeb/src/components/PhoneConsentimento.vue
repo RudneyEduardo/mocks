@@ -112,7 +112,7 @@
 
                 console.log(fromParam)    
 
-                axios.post('http://127.0.0.1:5000/bot/es', {
+                axios.post('http://13.58.21.71:5050/bot/es', {
                     Body: "confirmarConsentimento",
                     From: fromParam
                 });
