@@ -39,7 +39,7 @@
 
                                     </strong>
                                     Hola, hemos recibido consentimiento para compartir sus datos de registro.
-                                    Favorito: SEGYOU.
+                                    Solicitante: SEGYOU.
                                     Acceda a la aplicación del Banco para
                                     autenticar la presentación.
 
