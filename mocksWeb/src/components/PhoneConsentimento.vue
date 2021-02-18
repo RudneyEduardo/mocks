@@ -45,7 +45,7 @@
 
                                     <br><br>
                                     <span style="text-align: center;"><button id="confirmaConsentimento"
-                                            v-on:click="postData()">Confirmar</button></span>
+                                            v-on:click="postData()">Confirma</button></span>
                                     <hr>
                                     <span style="text-align: center;"><button
                                             id="btn_data_share_cancel">Rechazar</button></span>
