@@ -41,7 +41,7 @@
                                     Hola, hemos recibido consentimiento para compartir sus datos de registro.
                                     Solicitante: SEGYOU.
                                     Acceda a la aplicación del Banco para
-                                    autenticar la presentación.
+                                    autenticar el envío.
 
                                     <br><br>
                                     <span style="text-align: center;"><button id="confirmaConsentimento"
